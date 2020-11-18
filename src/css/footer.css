@@ -1,0 +1,89 @@
+.section-footer {
+  padding-top: 29px;
+  padding-bottom: 29px;
+  background-color: #f7f7f7;
+}
+
+@media screen and (min-width: 768px) {
+  .section-footer {
+    padding-top: 30px;
+    padding-bottom: 28px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .section-footer {
+    padding-top: 30px;
+    padding-bottom: 28px;
+  }
+}
+
+.page-footer {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.footer-text {
+  margin: 0;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #545454;
+}
+
+@media screen and (min-width: 768px) {
+  .footer-text {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+}
+
+.footer-btn {
+  border: none;
+  background-color: #f7f7f7;
+}
+
+.footer-link {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #545454;
+}
+
+.footer-link:hover,
+.footer-link:focus {
+  color: #ff6b08;
+}
+
+.team {
+  padding-left: 0;
+}
+
+.team-title {
+  color: #ffffff;
+}
+
+.team-list {
+  margin-bottom: 8px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.2;
+  list-style: none;
+  color: #ff6b08;
+}
