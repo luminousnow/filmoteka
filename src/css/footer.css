@@ -68,3 +68,10 @@
 .footer-link:focus {
   color: #ff6b08;
 }
+.icon-heart {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 14px;
+  height: 13px;
+}
