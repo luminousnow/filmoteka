@@ -1,0 +1,43 @@
+<div class="movie-card-container" data-id={{id}}>
+    <div class="movie-card-img-container">
+    <img class="movie-card-img" src=".....{{poster_path}}" alt="{{title}}" />
+    </div>
+     
+    <div class="movie-card-info">
+        <h2 class="movie-card-title">{{title}}</h2>
+        <ul class="info-list">
+          <li class="info-list-item">
+            <p class="item-name">Vote / Votes</p>
+            <p class="item-data">
+              <span class="item-rating item-rating--orange">{{vote_average}}</span>
+              <span class="item-rating--dash"> / </span>
+              <span class="item-rating">{{vote_count}}</span>
+            </p>
+          </li>
+          <li class="info-list-item">
+            <p class="item-name">Popularity</p>
+            <p class="item-data">{{popularity}}</p>
+          </li>
+          <li class="info-list-item">
+            <p class="item-name">Original title</p>
+            <p class="item-data item-data--upper">{{title}}</p>
+          </li>
+          <li class="info-list-item">
+            <p class="item-name">Genre</p>
+            <p class="item-data">
+            {{#each genres}}
+            <span>{{this.name}}</span>
+            {{/each}}
+            </p>
+          </li>
+        </ul>
+        <h3 class="movie-card-description">About</h3>
+        <p class="description-text">
+         {{overview}}
+        </p>
+        <div class="details__box">
+          <button type='button' class="card-btn js-btn-watched">Add to watched</button>
+          <button type='button' class="card-btn js-btn-queue">Add to queue</button>
+        </div>
+    </div>
+  </div>
