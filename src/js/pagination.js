@@ -12,7 +12,7 @@ const url = `https:api.themoviedb.org/3/movie/changes?api_key=${API_KEY}`;
 fetch(url)
   .then(res => res.json)
   .then(data => {
-    return data.results.join();
+    return data;
   });
 
 btnLeft.addEventListener('click', onBtnClickLeft);
