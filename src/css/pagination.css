@@ -23,14 +23,16 @@
   transform: matrix(-1, 0, 0, 1, 0, 0);
 }
 
-.pagination-curent {
+.pagination-current {
   width: 40px;
   height: 40px;
   border: none;
   border-radius: 5px;
   transform: matrix(-1, 0, 0, 1, 0, 0);
   background-color: #ff6b08;
+  color: #ffffff;
 }
+
 .icon-arrow {
   width: 16px;
   height: 16px;
