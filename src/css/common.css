@@ -17,6 +17,9 @@ h5 {
   margin: 0px;
 }
 
+a {
+  text-decoration: none;
+}
 img {
   display: block;
   max-width: 100%;
