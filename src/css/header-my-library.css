@@ -50,22 +50,15 @@
 .button-item:not(:last-child) {
   margin-right: 20px;
 }
-.btn:hover {
-  color: #212529;
-  text-decoration: none;
-}
-.btn.accent {
-  background-color: #ff6b01;
-}
 .btn:not(:disabled):not(.disabled) {
   cursor: pointer;
 }
-.btn.primary-white {
+.btn {
   border: 1px solid white;
   transition: all 0.3s ease-in;
 }
-.btn.primary-white:focus,
-.btn.primary-white:hover {
+.btn:focus,
+.btn:hover {
   border: 1px solid #ff6b01;
-  color: #ff6b01;
+  background-color: #ff6b01;
 }
