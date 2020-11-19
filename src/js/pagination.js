@@ -5,14 +5,15 @@ const btnCurrent = document.querySelector('button[data-action="current"]');
 const btnNext = document.querySelector('button[data-action="next"]');
 const btnRight = document.querySelector('button[data-action="right"]');
 
-API_KEY = '9fba788361f0940b39e64c54ec217196';
+const API_KEY = '9fba788361f0940b39e64c54ec217196';
 
-const url =
-  'https:api.themoviedb.org/3/movie/changes?api_key=9fba788361f0940b39e64c54ec217196&movie_id=1';
+const url = `https:api.themoviedb.org/3/movie/changes?api_key=${API_KEY}`;
 
 fetch(url)
   .then(res => res.json)
-  .then(console.log);
+  .then(data => {
+    return data.results.join();
+  });
 
 btnLeft.addEventListener('click', onBtnClickLeft);
 btnPrevious.addEventListener('click', onBtnClickPrevious);
