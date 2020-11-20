@@ -1,6 +1,6 @@
-<div class="movie-card-container" data-id={{id}}>
+<div class="movie-card-container">
     <div class="movie-card-img-container">
-    <img class="movie-card-img" src=".....{{poster_path}}" alt="{{title}}" />
+    <img class="movie-card-img" src="https://image.tmdb.org/t/p/original/{{poster_path}}" alt="{{title}}" />
     </div>
      
     <div class="movie-card-info">
@@ -25,9 +25,9 @@
           <li class="info-list-item">
             <p class="item-name">Genre</p>
             <p class="item-data">
-            {{#each genres}}
-            <span>{{this.name}}</span>
-            {{/each}}
+              {{#each genres}}
+              <span>{{this.name}}</span>
+              {{/each}}
             </p>
           </li>
         </ul>
@@ -35,9 +35,9 @@
         <p class="description-text">
          {{overview}}
         </p>
-        <div class="details__box">
-          <button type='button' class="card-btn js-btn-watched">Add to watched</button>
-          <button type='button' class="card-btn js-btn-queue">Add to queue</button>
+        <div class="button-container js-btns-add">
+          <button type='button' class="card-btn btn-watched js-btn-watched to-watched">Add to watched</button>
+          <button type='button' class="card-btn btn-queue js-btn-queue to-queue">Add to queue</button>
         </div>
     </div>
   </div>
