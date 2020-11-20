@@ -103,7 +103,8 @@
   display: block;
   color: red;
   font-size: 14px;
-  padding-bottom: 72px;
+}
+.error-hidden {
   display: none;
 }
 .input {
