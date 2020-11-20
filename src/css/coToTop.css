@@ -4,11 +4,11 @@
   bottom: 30px;
   right: 30px;
   border-radius: 50%;
-  padding: 6px 6px;
+  padding: 8px 8px;
   box-sizing: content-box;
-  background-color: white;
+  background-color: #999999;
   font-size: 16px;
-  color: white;
+  color: #999999;
   mix-blend-mode: difference;
   z-index: 999;
   display: none;
@@ -33,7 +33,7 @@
 
 .arrow-up {
   display: block;
-  fill: black;
+  fill: #050505;
   width: 10px;
   height: 10px;
 }
