@@ -20,6 +20,8 @@ function onSearch(e) {
     refs.errorMsg.classList.remove('hide');
     return;
   }
+  refs.errorMsg.classList.add('hide');
+
   filmsApiService.resetPage();
   filmsApiService.fetchFilms().then(result => {
     clearFilmsContainer();
