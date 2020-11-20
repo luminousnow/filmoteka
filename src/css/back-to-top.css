@@ -7,14 +7,9 @@
 }
 
 .back-top .back_to_top {
-  /* padding: 7px; */
-  /* border-color: #fff; */
   border-radius: 50%;
   background: rgba(7, 7, 7, 0.815);
-  /* color: #fff; */
   display: block;
-  /* text-decoration: none; */
-  /* text-align: center; */
 }
 
 @media screen and (max-width: 767px) {
