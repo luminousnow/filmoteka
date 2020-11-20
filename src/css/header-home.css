@@ -104,6 +104,8 @@
   color: red;
   font-size: 14px;
   padding-bottom: 72px;
+}
+.hide {
   display: none;
 }
 .input {
@@ -112,7 +114,6 @@
   margin: 0;
   padding: 0;
   padding-bottom: 4px;
-  margin-bottom: 97px;
   display: block;
   width: 100%;
   background-color: transparent;
