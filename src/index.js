@@ -1,2 +1,4 @@
 import './js/footer-modal.js';
-import './js/main';
+import './js/make-markup-by-search';
+// import './js/main';
+import './js/render-films-by-default';
