@@ -1,39 +1,43 @@
-.back-top {
+/* .back-top {
+  
+}
+.back_to_top {
+  
+} */
+.back_to_top {
+  display: none;
   margin: 0px;
   z-index: 9999;
   position: fixed;
   bottom: 70px;
   right: 10px;
-}
-
-.back-top .back_to_top {
-  width: 50px;
-  height: 50px;
   border-radius: 50%;
   background: rgba(7, 7, 7, 0.815);
+}
+.back_to_top-show {
   display: block;
 }
 
 @media screen and (max-width: 767px) {
-  .back-top .back_to_top {
+  .back_to_top {
     width: 30px;
     height: 30px;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-  .back-top .back_to_top {
+  .back_to_top {
     width: 34px;
     height: 34px;
   }
 }
 @media screen and (min-width: 1024px) {
-  .back-top .back_to_top {
+  .back_to_top {
     width: 44px;
     height: 44px;
   }
 }
 
-.back-top .back_to_top:hover {
+.back_to_top:hover {
   background: #ff6b08;
   transition: all linear 0.2s;
 }
