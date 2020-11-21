@@ -9,15 +9,17 @@
   font-size: 12px;
   line-height: 1.33;
   width: 274px;
+
   text-transform: uppercase;
-  overflow: hidden;
+  white-space: nowrap; /* Запрещаем перенос строк */
+  overflow: hidden; /* Обрезаем все, что не помещается в область */
+  text-overflow: ellipsis; /* Добавляем многоточие */
 }
 .movie-item-info {
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
   color: #ff6b01;
-  overflow: hidden;
 }
 .movie-item-info span:nth-last-child(n + 3):after {
   content: ',';
