@@ -2399,12 +2399,672 @@ var FilmsApiService = /*#__PURE__*/function () {
 }();
 
 exports.default = FilmsApiService;
-},{}],"js/render-by-search.js":[function(require,module,exports) {
+},{}],"js/get-refs.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.refs = void 0;
+var refs = {
+  mainWrapper: document.querySelector('.js-films-wrapper-list'),
+  // ссылка на UL в который пойдут все фильмы
+  modal: document.querySelector('.modal-popup'),
+  // тестовый DIV внизу страници в который будет рендерится полная инфа о фильме (по клику на карточку фильма)
+  addedToWatched: document.querySelector('.added-to-watched'),
+  // ссылка на кнопку в хедере чтоб вывести просмотренные фильмы
+  addedToQueue: document.querySelector('.added-to-queue'),
+  // ссылка на кнопку в хедере чтоб вывести добавленные в очередь
+  paginationList: document.querySelector('.pagination-list')
+};
+exports.refs = refs;
+},{}],"js/create-fetch.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchMovie = fetchMovie;
+exports.getGenresFromBack = exports.createUrlForFullInfo = exports.createUrlSearchByKeyword = exports.createUrlForTrending = void 0;
+var KEY = '9fba788361f0940b39e64c54ec217196';
+var DEFAULT_PAGE = 1;
+var BASE_URL = 'https://api.themoviedb.org/3/';
+var LANGUAGE = 'en-US';
+
+var createUrlForTrending = function createUrlForTrending() {
+  var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DEFAULT_PAGE;
+  // Создаёт ссылку на фильмы что в тренде (для формирования главной страници)
+  return "".concat(BASE_URL, "trending/movie/day?api_key=").concat(KEY, "&page=").concat(page, "&adult=false");
+}; // "all" було замінено на "movie", була проблема з виведенням назви фільму
+
+
+exports.createUrlForTrending = createUrlForTrending;
+
+var createUrlSearchByKeyword = function createUrlSearchByKeyword(query) {
+  var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_PAGE;
+  // Создаёт ссылку для поиска по ключевому слову
+  return "".concat(BASE_URL, "search/movie?api_key=").concat(KEY, "&language=").concat(LANGUAGE, "&page=").concat(page, "&include_adult=false&query=").concat(query);
+};
+
+exports.createUrlSearchByKeyword = createUrlSearchByKeyword;
+
+var createUrlForFullInfo = function createUrlForFullInfo(movie_id) {
+  // Создаёт ссылку для поиска по Id
+  return "".concat(BASE_URL, "movie/").concat(movie_id, "?api_key=").concat(KEY, "&language=").concat(LANGUAGE);
+};
+
+exports.createUrlForFullInfo = createUrlForFullInfo;
+
+var getGenresFromBack = function getGenresFromBack() {
+  return "".concat(BASE_URL, "genre/movie/list?api_key=").concat(KEY, "&language=").concat(LANGUAGE);
+};
+
+exports.getGenresFromBack = getGenresFromBack;
+
+function fetchMovie(url) {
+  // Принимает как параметр одну из выше описаных ф-ций и вернёт промис с данными
+  return fetch(url).then(function (response) {
+    return response.json();
+  });
+}
+},{}],"js/pagination.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.renderStartPagePagination = renderStartPagePagination;
+exports.renderLibraryPagination = renderLibraryPagination;
+
+var _getRefs = require("./get-refs");
+
+function renderStartPagePagination(arrayMovieData) {
+  // Сюда приходит массив movieData Прямо с бека
+  var html = "\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">\n                    <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n                        <path d=\"M12.6666 8H3.33325\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                        <path d=\"M7.99992 12.6667L3.33325 8.00004L7.99992 3.33337\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                    </svg>\n            </a>\n        </li>\n        <li class=\"pagination-list__item hide-in-mobile\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">1</a>\n        </li>\n        <li class=\"pagination-list__item pag-dots hide-in-mobile \">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">...</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">13</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">14</a>\n        </li>\n        <li class=\"pagination-list__item current-page\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">15</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">16</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">17</a>\n        </li>\n        <li class=\"pagination-list__item pag-dots hide-in-mobile\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">...</a>\n        </li>\n        <li class=\"pagination-list__item hide-in-mobile\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">20</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">\n                <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n                    <path d=\"M3.33341 8H12.6667\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                    <path d=\"M8.00008 12.6667L12.6667 8.00004L8.00008 3.33337\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                </svg>\n            </a>\n        </li>\n    ";
+  _getRefs.refs.paginationList.innerHTML = html; //console.log('renderStartPagePagination', arrayMovieData)
+}
+
+function renderLibraryPagination(movie) {// Сюда приходят по одному movie
+  // А тут надо знать сколько id в localstorage
+  //console.log('renderLibraryPagination', movie)
+}
+},{"./get-refs":"js/get-refs.js"}],"js/api-servis.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createPropertyForNamesOfGenres = createPropertyForNamesOfGenres;
+exports.renderFullInfoInModal = renderFullInfoInModal;
+exports.splitFetchedDataforPagination = splitFetchedDataforPagination;
+exports.renderWatchedOrQueue = renderWatchedOrQueue;
+exports.createEventsForButtonsToWatchedToQueue = createEventsForButtonsToWatchedToQueue;
+
+var _getRefs = require("./get-refs.js");
+
+var _createFetch = require("./create-fetch");
+
+var _getMarkup = require("./get-markup");
+
+var _pagination = require("./pagination");
+
+function createPropertyForNamesOfGenres(movieData, genres) {
+  var currentMovieAllGenres = []; // Сюда получу массив имён жанров
+
+  movieData.genre_ids.map(function (id) {
+    // беру id текущего фильма
+    genres.map(function (genre) {
+      // мапаю массив жанров полученых из localStorage (map работает пока есть жанры)
+      if (genre.id === id) {
+        // сравниваю id жанра из localStorage с id текущего фильма
+        currentMovieAllGenres.push({
+          id: genre.id,
+          name: genre.name
+        }); // получаю имя текущего жанра и пишу в массив имён жанров
+      }
+    });
+  });
+  return currentMovieAllGenres;
+}
+
+function renderFullInfoInModal(refs) {
+  refs.mainWrapper.addEventListener('click', function (event) {
+    refs.modal.classList.remove('hide');
+    var id = event.target.dataset.id;
+
+    if (id) {
+      (0, _getMarkup.renderFullInfo)(+id); // поставил "+" чтоб сразу к числу приводилось
+    }
+  });
+}
+
+function splitFetchedDataforPagination() {// Разбивка принятых данных для пагинации 
+  // Бекенд принципиально отдаёт по 20 фильмов.
+  // Надо побить на 9 или 8 (под адаптивку), остаток куда-то записать (localstorage держись)
+}
+
+function renderWatchedOrQueue(movieIds) {
+  _getRefs.refs.mainWrapper.innerHTML = '';
+
+  if (movieIds) {
+    movieIds.split(' ').map(function (id) {
+      (0, _createFetch.fetchMovie)((0, _createFetch.createUrlForFullInfo)(id)).then(function (movieData) {
+        // console.log(movieData);
+        _getRefs.refs.mainWrapper.insertAdjacentHTML('beforeend', (0, _getMarkup.renderMoviesListItem)(movieData));
+
+        (0, _pagination.renderLibraryPagination)(movieData);
+      });
+    });
+  }
+
+  renderFullInfoInModal(_getRefs.refs);
+}
+
+function createEventsForButtonsToWatchedToQueue(id) {
+  // для тех кнопок что в модалке с полной инфой о фильме
+  var wrapBtns = document.querySelector('.js-btns-add'); // обёртка кнопок
+
+  var toWatched = wrapBtns.querySelector('.to-watched');
+  var toQueue = wrapBtns.querySelector('.to-queue');
+  toWatched.addEventListener('click', function () {
+    return addUnicIdToLocalStorage('toWatched', id);
+  });
+  toQueue.addEventListener('click', function () {
+    return addUnicIdToLocalStorage('toQueue', id);
+  });
+} // по клику добавит только уникальные id в localStorage
+
+
+function addUnicIdToLocalStorage(nameInStorage, id) {
+  var IdFromStorage = localStorage.getItem(nameInStorage);
+  IdFromStorage = isIdExistInLocalStorage(IdFromStorage, id);
+  localStorage.setItem(nameInStorage, IdFromStorage);
+}
+
+function isIdExistInLocalStorage(fromStorage, currentId) {
+  // проверка есть ли такой id в localStorage
+  if (!fromStorage) {
+    fromStorage = currentId;
+  } else if (fromStorage.indexOf(currentId) < 0) {
+    fromStorage += " ".concat(currentId);
+  }
+
+  return fromStorage;
+}
+},{"./get-refs.js":"js/get-refs.js","./create-fetch":"js/create-fetch.js","./get-markup":"js/get-markup.js","./pagination":"js/pagination.js"}],"tamplates/cards.hbs":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _handlebars = _interopRequireDefault(require("handlebars/dist/handlebars.runtime"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var templateFunction = _handlebars.default.template({
+  "1": function _(container, depth0, helpers, partials, data) {
+    var lookupProperty = container.lookupProperty || function (parent, propertyName) {
+      if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+        return parent[propertyName];
+      }
+
+      return undefined;
+    };
+
+    return "      <span>" + container.escapeExpression(container.lambda(depth0 != null ? lookupProperty(depth0, "name") : depth0, depth0)) + "</span>\r\n      ";
+  },
+  "compiler": [8, ">= 4.3.0"],
+  "main": function main(container, depth0, helpers, partials, data) {
+    var stack1,
+        helper,
+        alias1 = depth0 != null ? depth0 : container.nullContext || {},
+        alias2 = container.hooks.helperMissing,
+        alias3 = "function",
+        alias4 = container.escapeExpression,
+        lookupProperty = container.lookupProperty || function (parent, propertyName) {
+      if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+        return parent[propertyName];
+      }
+
+      return undefined;
+    };
+
+    return "<li class=\"js-films-wrapper-list__item movie-list-item\" data-id='" + alias4((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "id",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 65
+        },
+        "end": {
+          "line": 3,
+          "column": 71
+        }
+      }
+    }) : helper)) + "'>\r\n  <div class=\"movie-item-link\">\r\n    <img class=\"movie-item-img\" data-id='" + alias4((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "id",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 41
+        },
+        "end": {
+          "line": 5,
+          "column": 47
+        }
+      }
+    }) : helper)) + "' src=\"https://image.tmdb.org/t/p/w500/" + alias4((helper = (helper = lookupProperty(helpers, "poster_path") || (depth0 != null ? lookupProperty(depth0, "poster_path") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "poster_path",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 86
+        },
+        "end": {
+          "line": 5,
+          "column": 101
+        }
+      }
+    }) : helper)) + "\"\r\n      alt=\"" + alias4((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "title",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 11
+        },
+        "end": {
+          "line": 6,
+          "column": 20
+        }
+      }
+    }) : helper)) + "\" />\r\n    <h2 class=\"movie-item-title\">" + alias4((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "title",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 33
+        },
+        "end": {
+          "line": 7,
+          "column": 42
+        }
+      }
+    }) : helper)) + " </h2>\r\n    <p class=\"movie-item-info\">\r\n" + ((stack1 = lookupProperty(helpers, "each").call(alias1, depth0 != null ? lookupProperty(depth0, "genres") : depth0, {
+      "name": "each",
+      "hash": {},
+      "fn": container.program(1, data, 0),
+      "inverse": container.noop,
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 6
+        },
+        "end": {
+          "line": 11,
+          "column": 15
+        }
+      }
+    })) != null ? stack1 : "") + " | " + alias4((helper = (helper = lookupProperty(helpers, "release_date") || (depth0 != null ? lookupProperty(depth0, "release_date") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "release_date",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 18
+        },
+        "end": {
+          "line": 11,
+          "column": 34
+        }
+      }
+    }) : helper)) + "</span><span class=\"movie-item-rating\"> " + alias4((helper = (helper = lookupProperty(helpers, "vote_average") || (depth0 != null ? lookupProperty(depth0, "vote_average") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "vote_average",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 74
+        },
+        "end": {
+          "line": 11,
+          "column": 90
+        }
+      }
+    }) : helper)) + "</span>\r\n    </p>\r\n  </div>\r\n</li>\r\n";
+  },
+  "useData": true
+});
+
+var _default = templateFunction;
+exports.default = _default;
+},{"handlebars/dist/handlebars.runtime":"../node_modules/handlebars/dist/handlebars.runtime.js"}],"tamplates/card.hbs":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _handlebars = _interopRequireDefault(require("handlebars/dist/handlebars.runtime"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var templateFunction = _handlebars.default.template({
+  "1": function _(container, depth0, helpers, partials, data) {
+    var lookupProperty = container.lookupProperty || function (parent, propertyName) {
+      if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+        return parent[propertyName];
+      }
+
+      return undefined;
+    };
+
+    return "              <span>" + container.escapeExpression(container.lambda(depth0 != null ? lookupProperty(depth0, "name") : depth0, depth0)) + "</span>\r\n";
+  },
+  "compiler": [8, ">= 4.3.0"],
+  "main": function main(container, depth0, helpers, partials, data) {
+    var stack1,
+        helper,
+        alias1 = depth0 != null ? depth0 : container.nullContext || {},
+        alias2 = container.hooks.helperMissing,
+        alias3 = "function",
+        alias4 = container.escapeExpression,
+        lookupProperty = container.lookupProperty || function (parent, propertyName) {
+      if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+        return parent[propertyName];
+      }
+
+      return undefined;
+    };
+
+    return "<div class=\"movie-card-container\" data-action=\"" + alias4((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "id",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 47
+        },
+        "end": {
+          "line": 1,
+          "column": 53
+        }
+      }
+    }) : helper)) + "\">\r\n    <div class=\"movie-card-img-container\">\r\n    <img class=\"movie-card-img\" src=\"https://image.tmdb.org/t/p/original/" + alias4((helper = (helper = lookupProperty(helpers, "poster_path") || (depth0 != null ? lookupProperty(depth0, "poster_path") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "poster_path",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 73
+        },
+        "end": {
+          "line": 3,
+          "column": 88
+        }
+      }
+    }) : helper)) + "\" alt=\"" + alias4((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "title",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 95
+        },
+        "end": {
+          "line": 3,
+          "column": 104
+        }
+      }
+    }) : helper)) + "\" />\r\n    </div>\r\n     \r\n    <div class=\"movie-card-info\">\r\n        <h2 class=\"movie-card-title\">" + alias4((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "title",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 37
+        },
+        "end": {
+          "line": 7,
+          "column": 46
+        }
+      }
+    }) : helper)) + "</h2>\r\n        <ul class=\"info-list\">\r\n          <li class=\"info-list-item\">\r\n            <p class=\"item-name\">Vote / Votes</p>\r\n            <p class=\"item-data\">\r\n              <span class=\"item-rating item-rating--orange\">" + alias4((helper = (helper = lookupProperty(helpers, "vote_average") || (depth0 != null ? lookupProperty(depth0, "vote_average") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "vote_average",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 60
+        },
+        "end": {
+          "line": 12,
+          "column": 76
+        }
+      }
+    }) : helper)) + "</span>\r\n              <span class=\"item-rating--dash\"> / </span>\r\n              <span class=\"item-rating\">" + alias4((helper = (helper = lookupProperty(helpers, "vote_count") || (depth0 != null ? lookupProperty(depth0, "vote_count") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "vote_count",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 40
+        },
+        "end": {
+          "line": 14,
+          "column": 54
+        }
+      }
+    }) : helper)) + "</span>\r\n            </p>\r\n          </li>\r\n          <li class=\"info-list-item\">\r\n            <p class=\"item-name\">Popularity</p>\r\n            <p class=\"item-data\">" + alias4((helper = (helper = lookupProperty(helpers, "popularity") || (depth0 != null ? lookupProperty(depth0, "popularity") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "popularity",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 33
+        },
+        "end": {
+          "line": 19,
+          "column": 47
+        }
+      }
+    }) : helper)) + "</p>\r\n          </li>\r\n          <li class=\"info-list-item\">\r\n            <p class=\"item-name\">Original title</p>\r\n            <p class=\"item-data item-data--upper\">" + alias4((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "title",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 50
+        },
+        "end": {
+          "line": 23,
+          "column": 59
+        }
+      }
+    }) : helper)) + "</p>\r\n          </li>\r\n          <li class=\"info-list-item\">\r\n            <p class=\"item-name\">Genre</p>\r\n            <p class=\"item-data\">\r\n" + ((stack1 = lookupProperty(helpers, "each").call(alias1, depth0 != null ? lookupProperty(depth0, "genres") : depth0, {
+      "name": "each",
+      "hash": {},
+      "fn": container.program(1, data, 0),
+      "inverse": container.noop,
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 28,
+          "column": 14
+        },
+        "end": {
+          "line": 30,
+          "column": 23
+        }
+      }
+    })) != null ? stack1 : "") + "            </p>\r\n          </li>\r\n        </ul>\r\n        <h3 class=\"movie-card-description\">About</h3>\r\n        <p class=\"description-text\">\r\n         " + alias4((helper = (helper = lookupProperty(helpers, "overview") || (depth0 != null ? lookupProperty(depth0, "overview") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+      "name": "overview",
+      "hash": {},
+      "data": data,
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 9
+        },
+        "end": {
+          "line": 36,
+          "column": 21
+        }
+      }
+    }) : helper)) + "\r\n        </p>\r\n        <div class=\"button-container js-btns-add\">\r\n          <button type='button' class=\"card-btn btn-watched js-btn-watched to-watched\">Add to watched</button>\r\n          <button type='button' class=\"card-btn btn-queue js-btn-queue to-queue\">Add to queue</button>\r\n          <button type='button' class=\"btn-close js-close\"></button>\r\n        </div>\r\n    </div>\r\n  </div>";
+  },
+  "useData": true
+});
+
+var _default = templateFunction;
+exports.default = _default;
+},{"handlebars/dist/handlebars.runtime":"../node_modules/handlebars/dist/handlebars.runtime.js"}],"js/get-markup.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.renderMoviesListItem = renderMoviesListItem;
+exports.renderModalContent = renderModalContent;
+exports.renderAllOnStartPage = renderAllOnStartPage;
+exports.renderFullInfo = renderFullInfo;
+
+var _getRefs = require("./get-refs.js");
+
+var _createFetch = require("./create-fetch");
+
+var _pagination = require("./pagination");
+
+var _apiServis = require("./api-servis");
+
+var _cards = _interopRequireDefault(require("../tamplates/cards.hbs"));
+
+var _card = _interopRequireDefault(require("../tamplates/card.hbs"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// рендер колекції карток фільмів
+function renderMoviesListItem(data) {
+  data.release_date = data.release_date.slice(0, 4); // повертає формат дати в рік з чотирьох чисел"2000"
+
+  return (0, _cards.default)(data);
+} // рендер однієї картки фільму для модалки
+
+
+function renderModalContent(data) {
+  return (0, _card.default)(data);
+}
+
+var loader = document.querySelector('.loader-ellips');
+
+function renderAllOnStartPage() {
+  // точка входа
+  (0, _createFetch.fetchMovie)((0, _createFetch.getGenresFromBack)()) // Получаю все жанры с бека и записую в localStorage
+  .then(function (objGenres) {
+    localStorage.setItem('genres', JSON.stringify(objGenres.genres));
+  });
+  (0, _createFetch.fetchMovie)((0, _createFetch.createUrlForTrending)()).then(function (data) {
+    var allResults = data.results;
+    var resultsForRender = [];
+
+    for (var i = 0; i < 9; i += 1) {
+      resultsForRender.push(data.results[i]);
+    }
+
+    console.log(resultsForRender); // console.log(data);
+
+    var films = resultsForRender;
+    var genres = JSON.parse(localStorage.getItem('genres')); // получаю жанры из localStorage и парсю
+
+    films.map(function (movieData) {
+      //в movieData каждый отдельный фильм
+      movieData.genres = (0, _apiServis.createPropertyForNamesOfGenres)(movieData, genres);
+      return _getRefs.refs.mainWrapper.insertAdjacentHTML('beforeend', renderMoviesListItem(movieData));
+    });
+    (0, _apiServis.renderFullInfoInModal)(_getRefs.refs);
+    (0, _pagination.renderStartPagePagination)(data);
+  });
+}
+
+function renderFullInfo(id) {
+  // loader.classList.remove('is-hidden');
+  (0, _createFetch.fetchMovie)((0, _createFetch.createUrlForFullInfo)(id)).then(function (data) {
+    _getRefs.refs.modal.innerHTML = renderModalContent(data); // тут передаю полученую дату в модалку полной инфи о фильме
+
+    _getRefs.refs.modal.classList.add('is-open'); // loader.classList.add('is-hidden');
+
+
+    var close = document.querySelector('.js-close');
+    close.addEventListener('click', onClose); // замінила refs.modal.classList.add('hide') на зміну onClose;
+
+    window.addEventListener('keydown', onEscKeyPress); // додано закриття модалки по натисканню на ESC;
+
+    _getRefs.refs.modal.addEventListener('click', onCloseOverlay); // додано закриття модалки по натисканню на Overlay;
+
+
+    function onClose(e) {
+      e.currentTarget.removeEventListener('keydown', onEscKeyPress);
+      e.currentTarget.removeEventListener('click', onCloseOverlay);
+
+      _getRefs.refs.modal.classList.add('hide');
+
+      _getRefs.refs.modal.classList.remove('is-open');
+    }
+
+    function onEscKeyPress(e) {
+      if (e.code === 'Escape') {
+        onClose(e);
+      }
+    }
+
+    function onCloseOverlay(e) {
+      if (e.currentTarget === e.target) {
+        onClose(e);
+      }
+    }
+
+    data = null;
+    return id;
+  }).then(function (id) {
+    (0, _apiServis.createEventsForButtonsToWatchedToQueue)(id); // для тех кнопок что в модалке с полной инфой о фильме чтоб id фильма записать в localstorage
+  }).catch(function (e) {// console.log(e);
+  });
+}
+},{"./get-refs.js":"js/get-refs.js","./create-fetch":"js/create-fetch.js","./pagination":"js/pagination.js","./api-servis":"js/api-servis.js","../tamplates/cards.hbs":"tamplates/cards.hbs","../tamplates/card.hbs":"tamplates/card.hbs"}],"js/render-by-search.js":[function(require,module,exports) {
 "use strict";
 
 var _searchFilms = _interopRequireDefault(require("../tamplates/search-films.hbs"));
 
 var _filmsService = _interopRequireDefault(require("../js/films-service"));
+
+var _getMarkup = require("./get-markup");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2431,6 +3091,14 @@ function onSearch(e) {
   filmsApiService.fetchFilms().then(function (result) {
     clearFilmsContainer();
     appendFilmsMarkup(result);
+    var mainWrapper = document.querySelector('.js-main-content');
+    mainWrapper.addEventListener('click', function (event) {
+      var id = event.target.dataset.id;
+
+      if (id) {
+        (0, _getMarkup.renderFullInfo)(+id); // поставил "+" чтоб сразу к числу приводилось
+      }
+    });
   });
 }
 
@@ -2441,7 +3109,7 @@ function appendFilmsMarkup(results) {
 function clearFilmsContainer() {
   refs.filmContainer.innerHTML = '';
 }
-},{"../tamplates/search-films.hbs":"tamplates/search-films.hbs","../js/films-service":"js/films-service.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../tamplates/search-films.hbs":"tamplates/search-films.hbs","../js/films-service":"js/films-service.js","./get-markup":"js/get-markup.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2469,7 +3137,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59568" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64711" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

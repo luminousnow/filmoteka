@@ -128,11 +128,12 @@ var refs = {
   mainWrapper: document.querySelector('.js-films-wrapper-list'),
   // ссылка на UL в который пойдут все фильмы
   modal: document.querySelector('.modal-popup'),
-  // DIV внизу страници в который рендерится полная инфа о фильме (по клику на карточку фильма)
+  // тестовый DIV внизу страници в который будет рендерится полная инфа о фильме (по клику на карточку фильма)
   addedToWatched: document.querySelector('.added-to-watched'),
   // ссылка на кнопку в хедере чтоб вывести просмотренные фильмы
-  addedToQueue: document.querySelector('.added-to-queue') // ссылка на кнопку в хедере чтоб вывести добавленные в очередь
-
+  addedToQueue: document.querySelector('.added-to-queue'),
+  // ссылка на кнопку в хедере чтоб вывести добавленные в очередь
+  paginationList: document.querySelector('.pagination-list')
 };
 exports.refs = refs;
 },{}],"js/create-fetch.js":[function(require,module,exports) {
@@ -184,13 +185,36 @@ function fetchMovie(url) {
     return response.json();
   });
 }
-},{}],"js/api-servis.js":[function(require,module,exports) {
+},{}],"js/pagination.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.renderStartPagePagination = renderStartPagePagination;
+exports.renderLibraryPagination = renderLibraryPagination;
+
+var _getRefs = require("./get-refs");
+
+function renderStartPagePagination(arrayMovieData) {
+  // Сюда приходит массив movieData Прямо с бека
+  var html = "\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">\n                    <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n                        <path d=\"M12.6666 8H3.33325\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                        <path d=\"M7.99992 12.6667L3.33325 8.00004L7.99992 3.33337\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                    </svg>\n            </a>\n        </li>\n        <li class=\"pagination-list__item hide-in-mobile\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">1</a>\n        </li>\n        <li class=\"pagination-list__item pag-dots hide-in-mobile \">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">...</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">13</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">14</a>\n        </li>\n        <li class=\"pagination-list__item current-page\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">15</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">16</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">17</a>\n        </li>\n        <li class=\"pagination-list__item pag-dots hide-in-mobile\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">...</a>\n        </li>\n        <li class=\"pagination-list__item hide-in-mobile\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">20</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">\n                <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n                    <path d=\"M3.33341 8H12.6667\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                    <path d=\"M8.00008 12.6667L12.6667 8.00004L8.00008 3.33337\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                </svg>\n            </a>\n        </li>\n    ";
+  _getRefs.refs.paginationList.innerHTML = html; //console.log('renderStartPagePagination', arrayMovieData)
+}
+
+function renderLibraryPagination(movie) {// Сюда приходят по одному movie
+  // А тут надо знать сколько id в localstorage
+  //console.log('renderLibraryPagination', movie)
+}
+},{"./get-refs":"js/get-refs.js"}],"js/api-servis.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.createPropertyForNamesOfGenres = createPropertyForNamesOfGenres;
+exports.renderFullInfoInModal = renderFullInfoInModal;
+exports.splitFetchedDataforPagination = splitFetchedDataforPagination;
 exports.renderWatchedOrQueue = renderWatchedOrQueue;
 exports.createEventsForButtonsToWatchedToQueue = createEventsForButtonsToWatchedToQueue;
 
@@ -199,6 +223,8 @@ var _getRefs = require("./get-refs.js");
 var _createFetch = require("./create-fetch");
 
 var _getMarkup = require("./get-markup");
+
+var _pagination = require("./pagination");
 
 function createPropertyForNamesOfGenres(movieData, genres) {
   var currentMovieAllGenres = []; // Сюда получу массив имён жанров
@@ -219,18 +245,37 @@ function createPropertyForNamesOfGenres(movieData, genres) {
   return currentMovieAllGenres;
 }
 
+function renderFullInfoInModal(refs) {
+  refs.mainWrapper.addEventListener('click', function (event) {
+    refs.modal.classList.remove('hide');
+    var id = event.target.dataset.id;
+
+    if (id) {
+      (0, _getMarkup.renderFullInfo)(+id); // поставил "+" чтоб сразу к числу приводилось
+    }
+  });
+}
+
+function splitFetchedDataforPagination() {// Разбивка принятых данных для пагинации 
+  // Бекенд принципиально отдаёт по 20 фильмов.
+  // Надо побить на 9 или 8 (под адаптивку), остаток куда-то записать (localstorage держись)
+}
+
 function renderWatchedOrQueue(movieIds) {
   _getRefs.refs.mainWrapper.innerHTML = '';
 
   if (movieIds) {
     movieIds.split(' ').map(function (id) {
       (0, _createFetch.fetchMovie)((0, _createFetch.createUrlForFullInfo)(id)).then(function (movieData) {
-        console.log(movieData);
-
+        // console.log(movieData);
         _getRefs.refs.mainWrapper.insertAdjacentHTML('beforeend', (0, _getMarkup.renderMoviesListItem)(movieData));
+
+        (0, _pagination.renderLibraryPagination)(movieData);
       });
     });
   }
+
+  renderFullInfoInModal(_getRefs.refs);
 }
 
 function createEventsForButtonsToWatchedToQueue(id) {
@@ -264,7 +309,7 @@ function isIdExistInLocalStorage(fromStorage, currentId) {
 
   return fromStorage;
 }
-},{"./get-refs.js":"js/get-refs.js","./create-fetch":"js/create-fetch.js","./get-markup":"js/get-markup.js"}],"../node_modules/handlebars/dist/handlebars.runtime.js":[function(require,module,exports) {
+},{"./get-refs.js":"js/get-refs.js","./create-fetch":"js/create-fetch.js","./get-markup":"js/get-markup.js","./pagination":"js/pagination.js"}],"../node_modules/handlebars/dist/handlebars.runtime.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 /**!
@@ -2642,10 +2687,13 @@ Object.defineProperty(exports, "__esModule", {
 exports.renderMoviesListItem = renderMoviesListItem;
 exports.renderModalContent = renderModalContent;
 exports.renderAllOnStartPage = renderAllOnStartPage;
+exports.renderFullInfo = renderFullInfo;
 
 var _getRefs = require("./get-refs.js");
 
 var _createFetch = require("./create-fetch");
+
+var _pagination = require("./pagination");
 
 var _apiServis = require("./api-servis");
 
@@ -2676,7 +2724,16 @@ function renderAllOnStartPage() {
     localStorage.setItem('genres', JSON.stringify(objGenres.genres));
   });
   (0, _createFetch.fetchMovie)((0, _createFetch.createUrlForTrending)()).then(function (data) {
-    var films = data.results;
+    var allResults = data.results;
+    var resultsForRender = [];
+
+    for (var i = 0; i < 9; i += 1) {
+      resultsForRender.push(data.results[i]);
+    }
+
+    console.log(resultsForRender); // console.log(data);
+
+    var films = resultsForRender;
     var genres = JSON.parse(localStorage.getItem('genres')); // получаю жанры из localStorage и парсю
 
     films.map(function (movieData) {
@@ -2684,27 +2741,19 @@ function renderAllOnStartPage() {
       movieData.genres = (0, _apiServis.createPropertyForNamesOfGenres)(movieData, genres);
       return _getRefs.refs.mainWrapper.insertAdjacentHTML('beforeend', renderMoviesListItem(movieData));
     });
-
-    _getRefs.refs.mainWrapper.addEventListener('click', function (event) {
-      _getRefs.refs.modal.classList.remove('hide');
-
-      var id = event.target.dataset.id;
-
-      if (id) {
-        renderFullInfo(+id);
-      }
-    });
+    (0, _apiServis.renderFullInfoInModal)(_getRefs.refs);
+    (0, _pagination.renderStartPagePagination)(data);
   });
 }
 
 function renderFullInfo(id) {
-  loader.classList.remove('is-hidden');
+  // loader.classList.remove('is-hidden');
   (0, _createFetch.fetchMovie)((0, _createFetch.createUrlForFullInfo)(id)).then(function (data) {
     _getRefs.refs.modal.innerHTML = renderModalContent(data); // тут передаю полученую дату в модалку полной инфи о фильме
 
-    _getRefs.refs.modal.classList.add('is-open');
+    _getRefs.refs.modal.classList.add('is-open'); // loader.classList.add('is-hidden');
 
-    loader.classList.add('is-hidden');
+
     var close = document.querySelector('.js-close');
     close.addEventListener('click', onClose); // замінила refs.modal.classList.add('hide') на зміну onClose;
 
@@ -2738,11 +2787,10 @@ function renderFullInfo(id) {
     return id;
   }).then(function (id) {
     (0, _apiServis.createEventsForButtonsToWatchedToQueue)(id); // для тех кнопок что в модалке с полной инфой о фильме чтоб id фильма записать в localstorage
-  }).catch(function (e) {
-    console.log(e);
+  }).catch(function (e) {// console.log(e);
   });
 }
-},{"./get-refs.js":"js/get-refs.js","./create-fetch":"js/create-fetch.js","./api-servis":"js/api-servis.js","../tamplates/cards.hbs":"tamplates/cards.hbs","../tamplates/card.hbs":"tamplates/card.hbs"}],"js/main-home.js":[function(require,module,exports) {
+},{"./get-refs.js":"js/get-refs.js","./create-fetch":"js/create-fetch.js","./pagination":"js/pagination.js","./api-servis":"js/api-servis.js","../tamplates/cards.hbs":"tamplates/cards.hbs","../tamplates/card.hbs":"tamplates/card.hbs"}],"js/main-home.js":[function(require,module,exports) {
 "use strict";
 
 var _getMarkup = require("./get-markup");
@@ -2777,7 +2825,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59568" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64711" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
