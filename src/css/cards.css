@@ -6,6 +6,10 @@
   margin-right: auto;
   width: 280px;
 }
+
+.container-cards {
+  padding-top: 230px;
+}
 .movie-list {
   padding-top: 20px;
   padding-bottom: 40px;

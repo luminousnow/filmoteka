@@ -103,6 +103,8 @@
   display: block;
   color: red;
   font-size: 14px;
+  min-width: 280px;
+  text-align: left;
 }
 .hide {
   display: none;
@@ -126,6 +128,9 @@
   .input {
     width: 336px;
   }
+  .error-js {
+    min-width: 493px;
+  }
 }
 
 ::placeholder {
@@ -137,9 +142,10 @@
 .search-btn {
   position: absolute;
   top: 0px;
-  right: 5px;
+  right: 0px;
   background: transparent;
   border: none;
   fill: #ffffff;
   outline: none;
+  cursor: pointer;
 }
