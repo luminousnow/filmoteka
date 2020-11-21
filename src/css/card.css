@@ -4,6 +4,7 @@
   margin-bottom: 10px;
   border-radius: 5px;
 }
+
 .movie-item-title {
   font-weight: 700;
   font-size: 12px;
@@ -24,8 +25,8 @@
 .movie-item-info span:nth-last-child(n + 3):after {
   content: ',';
 }
-.movie-item-info span:nth-last-child(n+3):after{
-  content: ','
+.movie-item-info span:nth-last-child(n + 3):after {
+  content: ',';
 }
 .movie-item-rating {
   padding-left: 10px;
@@ -45,9 +46,6 @@
 }
 @media screen and (min-width: 1024px) {
   .movie-item-img {
-    width: 274px;
-  }
-  .movie-item-title {
     width: 274px;
   }
 }
