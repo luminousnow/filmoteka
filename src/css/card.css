@@ -8,21 +8,13 @@
   font-weight: 700;
   font-size: 12px;
   line-height: 1.33;
-  width: 280px;
-
   text-transform: uppercase;
-  white-space: nowrap; /* Запрещаем перенос строк */
-  overflow: hidden; /* Обрезаем все, что не помещается в область */
-  text-overflow: ellipsis; /* Добавляем многоточие */
 }
 .movie-item-info {
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
-  color: #ff6b01;
-}
-.movie-item-info span:nth-last-child(n + 3):after {
-  content: ',';
+  color: orangered;
 }
 .movie-item-info span:nth-last-child(n+3):after{
   content: ','
@@ -32,14 +24,11 @@
   padding-right: 10px;
   margin-left: 10px;
   color: #ffffff;
-  background-color: #ff6b01;
+  background-color: orangered;
   border-radius: 5px;
 }
 @media screen and (min-width: 768px) {
   .movie-item-img {
-    width: 294px;
-  }
-  .movie-item-title {
     width: 294px;
   }
 }
@@ -47,6 +36,7 @@
   .movie-item-img {
     width: 274px;
   }
+
   .movie-item-title {
     width: 274px;
   }
