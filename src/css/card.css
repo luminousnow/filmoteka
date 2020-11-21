@@ -8,7 +8,7 @@
   font-weight: 700;
   font-size: 12px;
   line-height: 1.33;
-  width: 274px;
+  width: 280px;
 
   text-transform: uppercase;
   white-space: nowrap; /* Запрещаем перенос строк */
@@ -36,9 +36,15 @@
   .movie-item-img {
     width: 294px;
   }
+  .movie-item-title {
+    width: 294px;
+  }
 }
 @media screen and (min-width: 1024px) {
   .movie-item-img {
+    width: 274px;
+  }
+  .movie-item-title {
     width: 274px;
   }
 }
