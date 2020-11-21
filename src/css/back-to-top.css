@@ -1,12 +1,14 @@
 .back-top {
   margin: 0px;
-  z-index: 2;
+  z-index: 9999;
   position: fixed;
   bottom: 70px;
   right: 10px;
 }
 
 .back-top .back_to_top {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background: rgba(7, 7, 7, 0.815);
   display: block;
@@ -14,20 +16,20 @@
 
 @media screen and (max-width: 767px) {
   .back-top .back_to_top {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .back-top .back_to_top {
-    width: 60px;
-    height: 60px;
+    width: 34px;
+    height: 34px;
   }
 }
 @media screen and (min-width: 1024px) {
   .back-top .back_to_top {
-    width: 70px;
-    height: 70px;
+    width: 44px;
+    height: 44px;
   }
 }
 
