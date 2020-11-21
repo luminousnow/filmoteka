@@ -9,26 +9,40 @@
       rel="stylesheet"
     />
     <title>Home</title>
+    <!-- JS модалка Команди -->
+    <script src="./js/footer-modal.js"></script>
     <link rel="stylesheet" href="./css/main.css" />
   </head>
   <body>
+    <!-- Хедер -->
     <include src="./partials/header-home.html"></include>
-    <include src="./partials/main-content.html"></include>
-    <include src="./partials/modal-artem-for-prev.html"></include
-    ><!-- замените на нормальную модалку это для теста -->
-    <include src="./partials/page-navigation.html"></include>
-    <include src="./partials/footer.html"></include>
+
+    <!-- Лодер -->
     <include src="./partials/loader.html"></include>
+
+    <!-- Блок динамічного контента -->
+    <include src="./partials/main-content.html"></include>
+
+    <!-- модалка -->
+    <include src="./partials/modal-popup.html"></include>
+
+    <!-- Футер -->
+    <include src="./partials/footer.html"></include>
+
+    <!-- Кнопка "Догори" -->
     <include src="./partials/back-to-top.html"></include>
 
-    <!-- рендерить скріпт Артема -->
+    <!-- виводить розмітку колекцій -->
     <script src="./js/main-home.js"></script>
-
+    <!-- Розмітка Андрія під пошук по ключовому слову -->
     <script src="./js/render-by-search.js"></script>
-    <!-- <script src="./js/render-by-default.js"></script> -->
+    <!-- JS Пагінація -->
     <script src="./js/pagination.js"></script>
-    <script src="./js/back-to-top.js"></script>
-    <script src="./js/footer-modal.js"></script>
+    <!-- JS кнопка "Вгору"
+    <script src="./js/back-to-top.js"></script> -->
+    <!-- JS модалка Команди
+    <script src="./js/footer-modal.js"></script> -->
+    <!-- JS точка входу -->
     <script src="./index.js"></script>
   </body>
 </html>
