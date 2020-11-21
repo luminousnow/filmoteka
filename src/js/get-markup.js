@@ -82,6 +82,7 @@ function renderFullInfo(id) {
   fetchMovie(createUrlForFullInfo(id))
     .then(data => {
       refs.modal.innerHTML = renderModalContent(data); // тут передаю полученую дату в модалку полной инфи о фильме
+      refs.modal.classList.add('is-open');
       const close = document.querySelector('.js-close');
       close.addEventListener('click', onClose); // замінила refs.modal.classList.add('hide') на зміну onClose;
       window.addEventListener('keydown', onEscKeyPress); // додано закриття модалки по натисканню на ESC;
@@ -89,6 +90,7 @@ function renderFullInfo(id) {
       function onClose(e) {
         e.currentTarget.removeEventListener('keydown', onEscKeyPress);
         refs.modal.classList.add('hide');
+        refs.modal.classList.remove('is-open');
       }
       function onEscKeyPress(e) {
         if (e.code === 'Escape') {
