@@ -1,8 +1,5 @@
 import { refs } from './get-refs.js';
-import { renderAllOnStartPage } from './find-films';
 import { renderWatchedOrQueue } from './api-servis';
-
-renderAllOnStartPage(); // по сути это точка входа
 
 refs.addedToWatched.addEventListener('click', event => {
   // кнопка в хедере выводит просмотренные фильмы
