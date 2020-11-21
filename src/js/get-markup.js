@@ -55,9 +55,11 @@ export function renderModalContent(data) {
 //         </div>
 //     `;
 // }
+const loader = document.querySelector('.loader-ellips');
 
 export function renderAllOnStartPage() {
   // точка входа
+  loader.classList.remove('is-hidden');
   fetchMovie(createUrlForTrending()).then(data => {
     const films = data.results;
 
@@ -65,6 +67,7 @@ export function renderAllOnStartPage() {
       refs.mainWrapper.insertAdjacentHTML(
         'beforeend',
         renderMoviesListItem(movieData),
+        loader.classList.add('is-hidden'),
       ),
     );
 
@@ -79,10 +82,12 @@ export function renderAllOnStartPage() {
 }
 
 function renderFullInfo(id) {
+  loader.classList.remove('is-hidden');
   fetchMovie(createUrlForFullInfo(id))
     .then(data => {
       refs.modal.innerHTML = renderModalContent(data); // тут передаю полученую дату в модалку полной инфи о фильме
       refs.modal.classList.add('is-open');
+      loader.classList.add('is-hidden');
       const close = document.querySelector('.js-close');
       close.addEventListener('click', onClose); // замінила refs.modal.classList.add('hide') на зміну onClose;
       window.addEventListener('keydown', onEscKeyPress); // додано закриття модалки по натисканню на ESC;
