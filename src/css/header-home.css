@@ -7,10 +7,6 @@
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
-  /* фиксирование хедера */
-  position: fixed;
-  top: 0;
-  width: 100%;
 }
 @media screen and (min-width: 768px) {
   .header {
@@ -133,7 +129,7 @@
     width: 336px;
   }
   .error-js {
-    min-width: 393px;
+    min-width: 493px;
   }
 }
 
