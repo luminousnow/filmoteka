@@ -9,15 +9,10 @@ import { createEventsForButtonsToWatchedToQueue } from './api-servis';
 import movieTpl from '../tamplates/cards.hbs';
 import modalTpl from '../tamplates/card.hbs';
 
-//
+// рендер колекції карток фільмів
 export function renderMoviesListItem(data) {
   return movieTpl(data);
-} // додано рендер cards.hbs
-
-export function renderModalContent(data) {
-  return modalTpl(data);
-} // додано рендер модалки card.hbs
-
+}
 // export function renderMoviesListItem(data){
 //     return `
 //         <li class="js-films-wrapper-list__item" data-id="${data.id}">
@@ -27,6 +22,10 @@ export function renderModalContent(data) {
 //     `
 // }
 
+// рендер однієї картки фільму для модалки
+export function renderModalContent(data) {
+  return modalTpl(data);
+}
 // export function renderModalContent(data) {
 //   // тут описана тестовая модалка, все данные приходят норм
 

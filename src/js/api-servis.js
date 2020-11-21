@@ -28,8 +28,8 @@ export function createEventsForButtonsToWatchedToQueue(id) {
   );
 }
 
+// по клику добавит только уникальные id в localStorage
 function addUnicIdToLocalStorage(nameInStorage, id) {
-  // по клику добавит только уникальные id в localStorage
   let IdFromStorage = localStorage.getItem(nameInStorage);
   IdFromStorage = isIdExistInLocalStorage(IdFromStorage, id);
   localStorage.setItem(nameInStorage, IdFromStorage);

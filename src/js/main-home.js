@@ -1,3 +1,4 @@
 import { renderAllOnStartPage } from './get-markup';
 
-renderAllOnStartPage(); // рендер колекції ТОП фільмів на головну
+// рендер колекції ТОП фільмів на головну
+renderAllOnStartPage();
