@@ -2,16 +2,35 @@ import { refs } from './get-refs.js';
 import { fetchMovie, createUrlForFullInfo } from './create-fetch';
 import { renderMoviesListItem } from './get-markup';
 
+export function createPropertyForNamesOfGenres (movieData, genres){
+  const currentMovieAllGenres = [] // Сюда получу массив имён жанров
+  movieData.genre_ids.map(id => { // беру id текущего фильма
+    genres.map( genre => { // мапаю массив жанров полученых из localStorage (map работает пока есть жанры)
+      if(genre.id === id){ // сравниваю id жанра из localStorage с id текущего фильма
+        currentMovieAllGenres.push({
+          id: genre.id,
+          name: genre.name
+        }) // получаю имя текущего жанра и пишу в массив имён жанров
+      }
+    })
+  })
+  return currentMovieAllGenres
+}
+
 export function renderWatchedOrQueue(movieIds) {
   refs.mainWrapper.innerHTML = '';
-  movieIds.split(' ').map(id => {
-    fetchMovie(createUrlForFullInfo(id)).then(movieData => {
-      refs.mainWrapper.insertAdjacentHTML(
-        'beforeend',
-        renderMoviesListItem(movieData),
-      );
-    });
-  });
+  if(movieIds){
+    movieIds.split(' ').map(id => {
+      fetchMovie(createUrlForFullInfo(id))
+        .then(movieData => {
+          console.log(movieData);
+          refs.mainWrapper.insertAdjacentHTML(
+            'beforeend',
+            renderMoviesListItem(movieData),
+          )
+        })
+    })
+  }
 }
 
 export function createEventsForButtonsToWatchedToQueue(id) {

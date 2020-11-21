@@ -3,8 +3,13 @@ import {
   fetchMovie,
   createUrlForTrending,
   createUrlForFullInfo,
+  getGenresFromBack
 } from './create-fetch';
-import { createEventsForButtonsToWatchedToQueue } from './api-servis';
+
+import {
+  createEventsForButtonsToWatchedToQueue,
+  createPropertyForNamesOfGenres
+} from './api-servis';
 
 import movieTpl from '../tamplates/cards.hbs';
 import modalTpl from '../tamplates/card.hbs';
@@ -59,26 +64,35 @@ const loader = document.querySelector('.loader-ellips');
 
 export function renderAllOnStartPage() {
   // точка входа
-  loader.classList.remove('is-hidden');
-  fetchMovie(createUrlForTrending()).then(data => {
-    const films = data.results;
 
-    films.map(movieData =>
-      refs.mainWrapper.insertAdjacentHTML(
-        'beforeend',
-        renderMoviesListItem(movieData),
-        loader.classList.add('is-hidden'),
-      ),
-    );
+  fetchMovie(getGenresFromBack())
+  // Получаю все жанры с бека и записую в localStorage
+    .then(objGenres => {
+      localStorage.setItem('genres', JSON.stringify(objGenres.genres))
+    })
 
-    refs.mainWrapper.addEventListener('click', event => {
-      refs.modal.classList.remove('hide');
-      const id = event.target.dataset.id;
-      if (id) {
-        renderFullInfo(+id);
-      }
-    });
-  });
+  fetchMovie(createUrlForTrending())
+    .then(data => {
+      const films = data.results;
+      const genres = JSON.parse(localStorage.getItem('genres')) // получаю жанры из localStorage и парсю
+
+      films.map(movieData => { //в movieData каждый отдельный фильм
+        movieData.genres = createPropertyForNamesOfGenres (movieData, genres)
+        return refs.mainWrapper.insertAdjacentHTML(
+          'beforeend',
+          renderMoviesListItem(movieData)
+          )
+        }
+      )
+      
+      refs.mainWrapper.addEventListener('click', event => {
+        refs.modal.classList.remove('hide');
+        const id = event.target.dataset.id;
+        if (id) {
+          renderFullInfo(+id);
+        }
+      })
+  })
 }
 
 function renderFullInfo(id) {
