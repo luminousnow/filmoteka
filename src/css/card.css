@@ -1,0 +1,57 @@
+.movie-item-img {
+  width: 280px;
+  height: 398px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.movie-item-title {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.33;
+  width: 280px;
+
+  text-transform: uppercase;
+  white-space: nowrap; /* Запрещаем перенос строк */
+  overflow: hidden; /* Обрезаем все, что не помещается в область */
+  text-overflow: ellipsis; /* Добавляем многоточие */
+}
+.movie-item-info {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #ff6b01;
+}
+.movie-item-info span:nth-last-child(n + 3):after {
+  content: ',';
+}
+.movie-item-info span:nth-last-child(n+3):after{
+  content: ','
+}
+.movie-item-rating {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  color: #ffffff;
+  background-color: #ff6b01;
+  border-radius: 5px;
+}
+@media screen and (min-width: 768px) {
+  .movie-item-img {
+    width: 294px;
+  }
+  .movie-item-title {
+    width: 294px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .movie-item-img {
+    width: 274px;
+  }
+<<<<<<< Updated upstream
+  .movie-item-title {
+    width: 274px;
+  }
+}
+=======
+}
+>>>>>>> Stashed changes
