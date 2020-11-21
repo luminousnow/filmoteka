@@ -24,6 +24,9 @@
 .movie-item-info span:nth-last-child(n + 3):after {
   content: ',';
 }
+.movie-item-info span:nth-last-child(n+3):after{
+  content: ','
+}
 .movie-item-rating {
   padding-left: 10px;
   padding-right: 10px;
@@ -44,7 +47,11 @@
   .movie-item-img {
     width: 274px;
   }
+<<<<<<< Updated upstream
   .movie-item-title {
     width: 274px;
   }
 }
+=======
+}
+>>>>>>> Stashed changes

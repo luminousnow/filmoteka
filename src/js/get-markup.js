@@ -6,9 +6,12 @@ import {
   getGenresFromBack,
 } from './create-fetch';
 
+import {renderStartPagePagination} from './pagination'
+
 import {
   createEventsForButtonsToWatchedToQueue,
   createPropertyForNamesOfGenres,
+  renderFullInfoInModal
 } from './api-servis';
 
 import movieTpl from '../tamplates/cards.hbs';
@@ -16,9 +19,16 @@ import modalTpl from '../tamplates/card.hbs';
 
 // рендер колекції карток фільмів
 export function renderMoviesListItem(data) {
+<<<<<<< Updated upstream
   data.release_date = data.release_date.slice(0, 4); // повертає формат дати в рік з чотирьох чисел"2000"
   return movieTpl(data);
 }
+=======
+  data.release_date = data.release_date.slice(0, 4)
+  return movieTpl(data);
+}
+
+>>>>>>> Stashed changes
 
 // рендер однієї картки фільму для модалки
 export function renderModalContent(data) {
@@ -37,7 +47,18 @@ export function renderAllOnStartPage() {
     });
 
   fetchMovie(createUrlForTrending()).then(data => {
-    const films = data.results;
+
+    
+    let allResults = data.results
+    let resultsForRender = []
+    for(let i = 0; i < 9; i += 1){
+      resultsForRender.push(data.results[i])
+    }
+
+    console.log(resultsForRender);
+    // console.log(data);
+
+    const films = resultsForRender;
     const genres = JSON.parse(localStorage.getItem('genres')); // получаю жанры из localStorage и парсю
 
     films.map(movieData => {
@@ -48,18 +69,12 @@ export function renderAllOnStartPage() {
         renderMoviesListItem(movieData),
       );
     });
-
-    refs.mainWrapper.addEventListener('click', event => {
-      refs.modal.classList.remove('hide');
-      const id = event.target.dataset.id;
-      if (id) {
-        renderFullInfo(+id);
-      }
-    });
+    renderFullInfoInModal(refs)
+    renderStartPagePagination(data)
   });
 }
 
-function renderFullInfo(id) {
+export function renderFullInfo(id) {
   loader.classList.remove('is-hidden');
   fetchMovie(createUrlForFullInfo(id))
     .then(data => {
@@ -76,6 +91,7 @@ function renderFullInfo(id) {
         refs.modal.classList.add('hide');
         refs.modal.classList.remove('is-open');
       }
+
       function onEscKeyPress(e) {
         if (e.code === 'Escape') {
           onClose(e);

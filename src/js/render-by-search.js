@@ -1,6 +1,8 @@
 import filmsTmpl from '../tamplates/search-films.hbs';
 
+
 import FilmsApiService from '../js/films-service';
+import { renderFullInfo } from './get-markup';
 const refs = {
   searchForm: document.querySelector('.js-search-form'),
   filmContainer: document.querySelector('.js-main-content'),
@@ -26,6 +28,14 @@ function onSearch(e) {
   filmsApiService.fetchFilms().then(result => {
     clearFilmsContainer();
     appendFilmsMarkup(result);
+
+    const mainWrapper = document.querySelector('.js-main-content')
+    mainWrapper.addEventListener('click', event => {
+      const id = event.target.dataset.id;
+      if (id) {
+        renderFullInfo(+id); // поставил "+" чтоб сразу к числу приводилось
+      }
+    });
   });
 }
 

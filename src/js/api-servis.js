@@ -1,6 +1,7 @@
 import { refs } from './get-refs.js';
 import { fetchMovie, createUrlForFullInfo } from './create-fetch';
-import { renderMoviesListItem } from './get-markup';
+import { renderMoviesListItem, renderFullInfo } from './get-markup';
+import {renderLibraryPagination} from './pagination'
 
 export function createPropertyForNamesOfGenres (movieData, genres){
   const currentMovieAllGenres = [] // Сюда получу массив имён жанров
@@ -17,20 +18,39 @@ export function createPropertyForNamesOfGenres (movieData, genres){
   return currentMovieAllGenres
 }
 
+export function renderFullInfoInModal(refs){
+  refs.mainWrapper.addEventListener('click', event => {
+    refs.modal.classList.remove('hide');
+    const id = event.target.dataset.id;
+    if (id) {
+      renderFullInfo(+id); // поставил "+" чтоб сразу к числу приводилось
+    }
+  });
+}
+
+export function splitFetchedDataforPagination(){
+  // Разбивка принятых данных для пагинации 
+  // Бекенд принципиально отдаёт по 20 фильмов.
+  // Надо побить на 9 или 8 (под адаптивку), остаток куда-то записать (localstorage держись)
+  
+}
+  
 export function renderWatchedOrQueue(movieIds) {
   refs.mainWrapper.innerHTML = '';
   if(movieIds){
     movieIds.split(' ').map(id => {
       fetchMovie(createUrlForFullInfo(id))
         .then(movieData => {
-          console.log(movieData);
+          // console.log(movieData);
           refs.mainWrapper.insertAdjacentHTML(
             'beforeend',
             renderMoviesListItem(movieData),
           )
+          renderLibraryPagination(movieData)
         })
     })
   }
+  renderFullInfoInModal(refs)
 }
 
 export function createEventsForButtonsToWatchedToQueue(id) {
