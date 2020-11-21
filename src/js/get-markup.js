@@ -3,12 +3,12 @@ import {
   fetchMovie,
   createUrlForTrending,
   createUrlForFullInfo,
-  getGenresFromBack
+  getGenresFromBack,
 } from './create-fetch';
 
 import {
   createEventsForButtonsToWatchedToQueue,
-  createPropertyForNamesOfGenres
+  createPropertyForNamesOfGenres,
 } from './api-servis';
 
 import movieTpl from '../tamplates/cards.hbs';
@@ -66,33 +66,32 @@ export function renderAllOnStartPage() {
   // точка входа
 
   fetchMovie(getGenresFromBack())
-  // Получаю все жанры с бека и записую в localStorage
+    // Получаю все жанры с бека и записую в localStorage
     .then(objGenres => {
-      localStorage.setItem('genres', JSON.stringify(objGenres.genres))
-    })
+      localStorage.setItem('genres', JSON.stringify(objGenres.genres));
+    });
 
-  fetchMovie(createUrlForTrending())
-    .then(data => {
-      const films = data.results;
-      const genres = JSON.parse(localStorage.getItem('genres')) // получаю жанры из localStorage и парсю
+  fetchMovie(createUrlForTrending()).then(data => {
+    const films = data.results;
+    const genres = JSON.parse(localStorage.getItem('genres')); // получаю жанры из localStorage и парсю
 
-      films.map(movieData => { //в movieData каждый отдельный фильм
-        movieData.genres = createPropertyForNamesOfGenres (movieData, genres)
-        return refs.mainWrapper.insertAdjacentHTML(
-          'beforeend',
-          renderMoviesListItem(movieData)
-          )
-        }
-      )
-      
-      refs.mainWrapper.addEventListener('click', event => {
-        refs.modal.classList.remove('hide');
-        const id = event.target.dataset.id;
-        if (id) {
-          renderFullInfo(+id);
-        }
-      })
-  })
+    films.map(movieData => {
+      //в movieData каждый отдельный фильм
+      movieData.genres = createPropertyForNamesOfGenres(movieData, genres);
+      return refs.mainWrapper.insertAdjacentHTML(
+        'beforeend',
+        renderMoviesListItem(movieData),
+      );
+    });
+
+    refs.mainWrapper.addEventListener('click', event => {
+      refs.modal.classList.remove('hide');
+      const id = event.target.dataset.id;
+      if (id) {
+        renderFullInfo(+id);
+      }
+    });
+  });
 }
 
 function renderFullInfo(id) {
@@ -108,6 +107,7 @@ function renderFullInfo(id) {
       refs.modal.addEventListener('click', onCloseOverlay); // додано закриття модалки по натисканню на Overlay;
       function onClose(e) {
         e.currentTarget.removeEventListener('keydown', onEscKeyPress);
+        e.currentTarget.removeEventListener('click', onCloseOverlay);
         refs.modal.classList.add('hide');
         refs.modal.classList.remove('is-open');
       }
