@@ -22,6 +22,7 @@
 
 /* Mobile, Tablet, Desktop */
 .movie-card-container {
+  position: relative;
   padding: 20px 20px 40px;
 
   background-color: #e5e5e5;
@@ -227,4 +228,27 @@
 
 .lightbox.is-open .lightbox__content {
   transform: scale(1);
+}
+
+.btn-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  width: 48px;
+  height: 48px;
+
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  background-color: rgba(255, 107, 1, 0.2);
+  background-image: url('../img/icon-close.svg');
+  background-position: center;
+  background-size: 60%;
+  background-repeat: no-repeat;
+}
+.btn-close:hover {
+  background-color: #ff6b01;
 }
