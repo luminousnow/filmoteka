@@ -83,9 +83,19 @@ function renderFullInfo(id) {
     .then(data => {
       refs.modal.innerHTML = renderModalContent(data); // тут передаю полученую дату в модалку полной инфи о фильме
       const close = document.querySelector('.js-close');
-      close.addEventListener('click', () => {
+      close.addEventListener('click', onClose); // замінила refs.modal.classList.add('hide') на зміну onClose;
+      window.addEventListener('keydown', onEscKeyPress); // додано закриття модалки по натисканню на ESC;
+
+      function onClose(e) {
+        e.currentTarget.removeEventListener('keydown', onEscKeyPress);
         refs.modal.classList.add('hide');
-      });
+      }
+      function onEscKeyPress(e) {
+        if (e.code === 'Escape') {
+          onClose(e);
+        }
+      }
+
       data = null;
       return id;
     })
