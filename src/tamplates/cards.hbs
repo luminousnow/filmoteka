@@ -1,15 +1,16 @@
 {{!-- <ul class="movie-list"> --}}
-  {{!-- {{#each this}} --}}
-  <li class="js-films-wrapper-list__item movie-list-item" data-id='{{id}}'>
-    <div class="movie-item-link">
-      <img class="movie-item-img" data-id='{{id}}' src="https://image.tmdb.org/t/p/w500/{{poster_path}}" alt="{{title}}" />
-      <h2 class="movie-item-title">{{title}} </h2>
-      <p class="movie-item-info"> 
-        {{#each genres}} 
-        <span>{{this.name}}</span> 
-        {{/each}} | {{release_date}}</span><span class="movie-item-rating"> {{vote_average}}</span>
-      </p>
-    </div>
-  </li>
-  {{!-- {{/each }} --}}
+{{!-- {{#each this}} --}}
+<li class="js-films-wrapper-list__item movie-list-item" data-id='{{id}}'>
+  <div class="movie-item-link">
+    <img class="movie-item-img" data-id='{{id}}' src="https://image.tmdb.org/t/p/w500/{{poster_path}}"
+      alt="{{title}}" />
+    <h2 class="movie-item-title">{{title}} </h2>
+    <p class="movie-item-info">
+      {{#each genres}}
+      <span>{{this.name}}</span>
+      {{/each}} | {{release_date}}</span><span class="movie-item-rating"> {{vote_average}}</span>
+    </p>
+  </div>
+</li>
+{{!-- {{/each }} --}}
 {{!-- </ul> --}}
