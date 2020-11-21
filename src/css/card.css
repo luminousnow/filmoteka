@@ -8,13 +8,16 @@
   font-weight: 700;
   font-size: 12px;
   line-height: 1.33;
+  width: 274px;
   text-transform: uppercase;
+  overflow: hidden;
 }
 .movie-item-info {
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
-  color: orangered;
+  color: #ff6b01;
+  overflow: hidden;
 }
 .movie-item-info span:nth-last-child(n + 3):after {
   content: ',';
@@ -24,7 +27,7 @@
   padding-right: 10px;
   margin-left: 10px;
   color: #ffffff;
-  background-color: orangered;
+  background-color: #ff6b01;
   border-radius: 5px;
 }
 @media screen and (min-width: 768px) {
