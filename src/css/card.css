@@ -5,14 +5,24 @@
   border-radius: 5px;
 }
 .movie-item-title {
+  font-weight: 700;
   font-size: 12px;
   line-height: 1.33;
   text-transform: uppercase;
 }
 .movie-item-info {
+  font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
   color: orangered;
+}
+.movie-item-rating {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  color: #ffffff;
+  background-color: orangered;
+  border-radius: 5px;
 }
 @media screen and (min-width: 768px) {
   .movie-item-img {

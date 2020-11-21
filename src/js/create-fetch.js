@@ -18,6 +18,10 @@ export const createUrlForFullInfo = movie_id => {
   return `${BASE_URL}movie/${movie_id}?api_key=${KEY}&language=${LANGUAGE}`;
 };
 
+export const getGenresFromBack = () => {
+  return `${BASE_URL}genre/movie/list?api_key=${KEY}&language=${LANGUAGE}`;
+}
+
 export function fetchMovie(url) {
   // Принимает как параметр одну из выше описаных ф-ций и вернёт промис с данными
   return fetch(url).then(response => response.json());
