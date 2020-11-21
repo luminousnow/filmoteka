@@ -1,3 +1,3 @@
-import { renderAllOnStartPage } from './find-films';
+import { renderAllOnStartPage } from './get-markup';
 
-renderAllOnStartPage(); // по сути это точка входа
+renderAllOnStartPage(); // рендер колекції ТОП фільмів на головну
