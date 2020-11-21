@@ -19,16 +19,10 @@ import modalTpl from '../tamplates/card.hbs';
 
 // рендер колекції карток фільмів
 export function renderMoviesListItem(data) {
-<<<<<<< Updated upstream
   data.release_date = data.release_date.slice(0, 4); // повертає формат дати в рік з чотирьох чисел"2000"
   return movieTpl(data);
 }
-=======
-  data.release_date = data.release_date.slice(0, 4)
-  return movieTpl(data);
-}
 
->>>>>>> Stashed changes
 
 // рендер однієї картки фільму для модалки
 export function renderModalContent(data) {
