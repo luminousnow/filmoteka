@@ -91,7 +91,7 @@ function renderFullInfo(id) {
       const close = document.querySelector('.js-close');
       close.addEventListener('click', onClose); // замінила refs.modal.classList.add('hide') на зміну onClose;
       window.addEventListener('keydown', onEscKeyPress); // додано закриття модалки по натисканню на ESC;
-
+      refs.modal.addEventListener('click', onCloseOverlay); // додано закриття модалки по натисканню на Overlay;
       function onClose(e) {
         e.currentTarget.removeEventListener('keydown', onEscKeyPress);
         refs.modal.classList.add('hide');
@@ -99,6 +99,12 @@ function renderFullInfo(id) {
       }
       function onEscKeyPress(e) {
         if (e.code === 'Escape') {
+          onClose(e);
+        }
+      }
+
+      function onCloseOverlay(e) {
+        if (e.currentTarget === e.target) {
           onClose(e);
         }
       }
