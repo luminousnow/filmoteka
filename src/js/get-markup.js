@@ -55,9 +55,11 @@ export function renderModalContent(data) {
 //         </div>
 //     `;
 // }
+const loader = document.querySelector('.loader-ellips');
 
 export function renderAllOnStartPage() {
   // точка входа
+  loader.classList.remove('is-hidden');
   fetchMovie(createUrlForTrending()).then(data => {
     const films = data.results;
 
@@ -65,6 +67,7 @@ export function renderAllOnStartPage() {
       refs.mainWrapper.insertAdjacentHTML(
         'beforeend',
         renderMoviesListItem(movieData),
+        loader.classList.add('is-hidden'),
       ),
     );
 
@@ -79,9 +82,11 @@ export function renderAllOnStartPage() {
 }
 
 function renderFullInfo(id) {
+  loader.classList.remove('is-hidden');
   fetchMovie(createUrlForFullInfo(id))
     .then(data => {
       refs.modal.innerHTML = renderModalContent(data); // тут передаю полученую дату в модалку полной инфи о фильме
+      loader.classList.add('is-hidden');
       const close = document.querySelector('.js-close');
       close.addEventListener('click', () => {
         refs.modal.classList.add('hide');
