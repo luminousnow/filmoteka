@@ -16,6 +16,9 @@
   line-height: 1.33;
   color: orangered;
 }
+.movie-item-info span:nth-last-child(n + 3):after {
+  content: ',';
+}
 .movie-item-rating {
   padding-left: 10px;
   padding-right: 10px;
