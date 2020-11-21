@@ -60,3 +60,7 @@
   animation-name: reveal;
   animation-direction: reverse;
 }
+
+.is-hidden {
+  display: none;
+}
