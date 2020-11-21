@@ -6,12 +6,12 @@ import {
   getGenresFromBack,
 } from './create-fetch';
 
-import {renderStartPagePagination} from './pagination'
+import { renderStartPagePagination } from './pagination';
 
 import {
   createEventsForButtonsToWatchedToQueue,
   createPropertyForNamesOfGenres,
-  renderFullInfoInModal
+  renderFullInfoInModal,
 } from './api-servis';
 
 import movieTpl from '../tamplates/cards.hbs';
@@ -22,7 +22,6 @@ export function renderMoviesListItem(data) {
   data.release_date = data.release_date.slice(0, 4); // повертає формат дати в рік з чотирьох чисел"2000"
   return movieTpl(data);
 }
-
 
 // рендер однієї картки фільму для модалки
 export function renderModalContent(data) {
@@ -41,12 +40,10 @@ export function renderAllOnStartPage() {
     });
 
   fetchMovie(createUrlForTrending()).then(data => {
-
-    
-    let allResults = data.results
-    let resultsForRender = []
-    for(let i = 0; i < 9; i += 1){
-      resultsForRender.push(data.results[i])
+    let allResults = data.results;
+    let resultsForRender = [];
+    for (let i = 0; i < 9; i += 1) {
+      resultsForRender.push(data.results[i]);
     }
 
     console.log(resultsForRender);
@@ -63,18 +60,18 @@ export function renderAllOnStartPage() {
         renderMoviesListItem(movieData),
       );
     });
-    renderFullInfoInModal(refs)
-    renderStartPagePagination(data)
+    renderFullInfoInModal(refs);
+    renderStartPagePagination(data);
   });
 }
 
 export function renderFullInfo(id) {
-  loader.classList.remove('is-hidden');
+  // loader.classList.remove('is-hidden');
   fetchMovie(createUrlForFullInfo(id))
     .then(data => {
       refs.modal.innerHTML = renderModalContent(data); // тут передаю полученую дату в модалку полной инфи о фильме
       refs.modal.classList.add('is-open');
-      loader.classList.add('is-hidden');
+      // loader.classList.add('is-hidden');
       const close = document.querySelector('.js-close');
       close.addEventListener('click', onClose); // замінила refs.modal.classList.add('hide') на зміну onClose;
       window.addEventListener('keydown', onEscKeyPress); // додано закриття модалки по натисканню на ESC;
@@ -105,6 +102,6 @@ export function renderFullInfo(id) {
       createEventsForButtonsToWatchedToQueue(id); // для тех кнопок что в модалке с полной инфой о фильме чтоб id фильма записать в localstorage
     })
     .catch(e => {
-      console.log(e);
+      // console.log(e);
     });
 }
