@@ -1,12 +1,11 @@
 import * as basicLightbox from 'basiclightbox';
 import 'basicLightbox/dist/basicLightbox.min.css';
 
-const footerBtn = document.querySelector('.footer-btn');
+const footerBtn = document.querySelector('#footer-btn');
 
 footerBtn.addEventListener('click', onFooterBtnClick);
 
 function onFooterBtnClick(event) {
-  event.preventDefault();
   const instance = basicLightbox.create(`
     <h3 class="team-title">Над проектом працювали :</h3>
     <ul class="team">

@@ -13,25 +13,23 @@
   </head>
   <body>
     <include src="./partials/header-home.html"></include>
-    <!-- Лодер -->
-    <!-- <include src="./partials/loader.html"></include> -->
-
-    <!-- Блок динамічного контента -->
-    <include src="./partials/main-content.html"></include>
-
-    <!-- модалка -->
-    <include src="./partials/modal-popup.html"></include>
-
-    <!-- Футер -->
-
-    <!-- <include src="./partials/modal-artem-for-prev.html"></include -->
-    ><!-- замените на нормальную модалку это для теста -->
-    <!-- <include src="./partials/page-navigation.html"></include> -->
-    <include src="./partials/pagination.html"></include>
-
-    <include src="./partials/footer.html"></include>
     <include src="./partials/loader.html"></include>
-    <include src="./partials/modal-artem-for-prev.html"></include><!-- замените на нормальную модалку это для теста -->
+    <include src="./partials/main-content.html"></include>
+    <include src="./partials/modal-popup.html"></include>
+    <include src="./partials/pagination.html"></include>
+    <include src="./partials/back-to-top.html"></include>
+    <include src="./partials/footer.html"></include>
+
+    <!-- виводить розмітку колекцію ТОП фільмів для Головної -->
+    <script src="./js/main-home.js"></script>
+    <!-- виводить розмітку колекцію фільмів "по ключовому слову" для Головної  -->
+    <script src="./js/render-by-search.js"></script>
+    <!-- JS Пагінація -->
+    <script src="./js/pagination.js"></script>
+    <!-- JS кнопка "Вгору"
+    <script src="./js/back-to-top.js"></script> -->
+    <!-- JS модалка Команди
+    <script src="./js/footer-modal.js"></script> -->
 
     <script src="./index.js"></script>
   </body>
