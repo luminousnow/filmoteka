@@ -1,24 +1,27 @@
 import { refs } from './get-refs.js';
 import { fetchMovie, createUrlForFullInfo } from './create-fetch';
 import { renderMoviesListItem, renderFullInfo } from './get-markup';
-import {renderLibraryPagination} from './pagination'
+import { renderLibraryPagination } from './pagination';
 
-export function createPropertyForNamesOfGenres (movieData, genres){
-  const currentMovieAllGenres = [] // Сюда получу массив имён жанров
-  movieData.genre_ids.map(id => { // беру id текущего фильма
-    genres.map( genre => { // мапаю массив жанров полученых из localStorage (map работает пока есть жанры)
-      if(genre.id === id){ // сравниваю id жанра из localStorage с id текущего фильма
+export function createPropertyForNamesOfGenres(movieData, genres) {
+  const currentMovieAllGenres = []; // Сюда получу массив имён жанров
+  movieData.genre_ids.map(id => {
+    // беру id текущего фильма
+    genres.map(genre => {
+      // мапаю массив жанров полученых из localStorage (map работает пока есть жанры)
+      if (genre.id === id) {
+        // сравниваю id жанра из localStorage с id текущего фильма
         currentMovieAllGenres.push({
           id: genre.id,
-          name: genre.name
-        }) // получаю имя текущего жанра и пишу в массив имён жанров
+          name: genre.name,
+        }); // получаю имя текущего жанра и пишу в массив имён жанров
       }
-    })
-  })
-  return currentMovieAllGenres
+    });
+  });
+  return currentMovieAllGenres;
 }
 
-export function renderFullInfoInModal(refs){
+export function renderFullInfoInModal(refs) {
   refs.mainWrapper.addEventListener('click', event => {
     refs.modal.classList.remove('hide');
     const id = event.target.dataset.id;
@@ -28,29 +31,27 @@ export function renderFullInfoInModal(refs){
   });
 }
 
-export function splitFetchedDataforPagination(){
-  // Разбивка принятых данных для пагинации 
+export function splitFetchedDataforPagination() {
+  // Разбивка принятых данных для пагинации
   // Бекенд принципиально отдаёт по 20 фильмов.
   // Надо побить на 9 или 8 (под адаптивку), остаток куда-то записать (localstorage держись)
-  
 }
-  
+
 export function renderWatchedOrQueue(movieIds) {
   refs.mainWrapper.innerHTML = '';
-  if(movieIds){
+  if (movieIds) {
     movieIds.split(' ').map(id => {
-      fetchMovie(createUrlForFullInfo(id))
-        .then(movieData => {
-          // console.log(movieData);
-          refs.mainWrapper.insertAdjacentHTML(
-            'beforeend',
-            renderMoviesListItem(movieData),
-          )
-          renderLibraryPagination(movieData)
-        })
-    })
+      fetchMovie(createUrlForFullInfo(id)).then(movieData => {
+        // console.log(movieData);
+        refs.mainWrapper.insertAdjacentHTML(
+          'beforeend',
+          renderMoviesListItem(movieData),
+        );
+        renderLibraryPagination(movieData);
+      });
+    });
   }
-  renderFullInfoInModal(refs)
+  renderFullInfoInModal(refs);
 }
 
 export function createEventsForButtonsToWatchedToQueue(id) {
