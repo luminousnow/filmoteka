@@ -117,47 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/get-refs.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.refs = void 0;
-var refs = {
-  mainWrapper: document.querySelector('.js-films-wrapper-list'),
-  // ссылка на UL в который пойдут все фильмы
-  modal: document.querySelector('.modal-popup'),
-  // тестовый DIV внизу страници в который будет рендерится полная инфа о фильме (по клику на карточку фильма)
-  addedToWatched: document.querySelector('.added-to-watched'),
-  // ссылка на кнопку в хедере чтоб вывести просмотренные фильмы
-  addedToQueue: document.querySelector('.added-to-queue'),
-  // ссылка на кнопку в хедере чтоб вывести добавленные в очередь
-  paginationList: document.querySelector('.pagination-list')
-};
-exports.refs = refs;
-},{}],"js/pagination.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.renderStartPagePagination = renderStartPagePagination;
-exports.renderLibraryPagination = renderLibraryPagination;
-
-var _getRefs = require("./get-refs");
-
-function renderStartPagePagination(arrayMovieData) {
-  // Сюда приходит массив movieData Прямо с бека
-  var html = "\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">\n                    <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n                        <path d=\"M12.6666 8H3.33325\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                        <path d=\"M7.99992 12.6667L3.33325 8.00004L7.99992 3.33337\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                    </svg>\n            </a>\n        </li>\n        <li class=\"pagination-list__item hide-in-mobile\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">1</a>\n        </li>\n        <li class=\"pagination-list__item pag-dots hide-in-mobile \">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">...</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">13</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">14</a>\n        </li>\n        <li class=\"pagination-list__item current-page\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">15</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">16</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">17</a>\n        </li>\n        <li class=\"pagination-list__item pag-dots hide-in-mobile\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">...</a>\n        </li>\n        <li class=\"pagination-list__item hide-in-mobile\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">20</a>\n        </li>\n        <li class=\"pagination-list__item\">\n            <a class=\"pagination-list__item-link js-pagination-item\" href=\"#\">\n                <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\">\n                    <path d=\"M3.33341 8H12.6667\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                    <path d=\"M8.00008 12.6667L12.6667 8.00004L8.00008 3.33337\" stroke=\"black\" stroke-width=\"1.33333\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                </svg>\n            </a>\n        </li>\n    ";
-  _getRefs.refs.paginationList.innerHTML = html; //console.log('renderStartPagePagination', arrayMovieData)
-}
-
-function renderLibraryPagination(movie) {// Сюда приходят по одному movie
-  // А тут надо знать сколько id в localstorage
-  //console.log('renderLibraryPagination', movie)
-}
-},{"./get-refs":"js/get-refs.js"}],"js/back-to-top.js":[function(require,module,exports) {
+})({"js/back-to-top.js":[function(require,module,exports) {
 function trackScroll() {
   var scrolled = window.pageYOffset;
   var coords = document.documentElement.clientHeight;
@@ -274,18 +234,16 @@ footerBtn.addEventListener('click', onFooterBtnClick);
 
 function onFooterBtnClick(event) {
   event.preventDefault();
-  var instance = basicLightbox.create("\n    <h3 class=\"team-title\">\u041D\u0430\u0434 \u043F\u0440\u043E\u0435\u043A\u0442\u043E\u043C \u043F\u0440\u0430\u0446\u044E\u0432\u0430\u043B\u0438 :</h3>\n    <ul class=\"team\">\n      <li class=\"team-list\">Denys Kravchuk</li>\n      <li class=\"team-list\">Serhiy Stepanov</li>\n      <li class=\"team-list\">Andrey Kovsh</li>\n      <li class=\"team-list\">Valentyna Chudik</li>\n      <li class=\"team-list\">Marina Vetokh</li>\n      <li class=\"team-list\">Andrii Lavrenchuk</li>\n    </ul>\n");
+  var instance = basicLightbox.create("\n    <h3 class=\"team-title\">\u041D\u0430\u0434 \u043F\u0440\u043E\u0435\u043A\u0442\u043E\u043C \u043F\u0440\u0430\u0446\u044E\u0432\u0430\u043B\u0438 :</h3>\n    <ul class=\"team\">\n      <li class=\"team-list\">Andrey Kovsh</li>\n      <li class=\"team-list\">Andrii Lavrenchuk</li>\n      <li class=\"team-list\">Artem Kiev</li>\n      <li class=\"team-list\">Denys Kravchuk</li>\n      <li class=\"team-list\">Marina Vetokh</li>\n      <li class=\"team-list\">Serhiy Stepanov</li>\n      <li class=\"team-list\">Valentyna Chudik</li>\n    </ul>\n");
   instance.show();
 }
 },{"basiclightbox":"../node_modules/basiclightbox/dist/basicLightbox.min.js","basicLightbox/dist/basicLightbox.min.css":"../node_modules/basicLightbox/dist/basicLightbox.min.css"}],"index.js":[function(require,module,exports) {
 "use strict";
 
-require("./js/pagination.js");
-
-require("./js/back-to-top.js");
+require("./js/back-to-top");
 
 require("./js/footer-modal.js");
-},{"./js/pagination.js":"js/pagination.js","./js/back-to-top.js":"js/back-to-top.js","./js/footer-modal.js":"js/footer-modal.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./js/back-to-top":"js/back-to-top.js","./js/footer-modal.js":"js/footer-modal.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

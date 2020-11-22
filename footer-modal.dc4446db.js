@@ -210,7 +210,7 @@ footerBtn.addEventListener('click', onFooterBtnClick);
 
 function onFooterBtnClick(event) {
   event.preventDefault();
-  var instance = basicLightbox.create("\n    <h3 class=\"team-title\">\u041D\u0430\u0434 \u043F\u0440\u043E\u0435\u043A\u0442\u043E\u043C \u043F\u0440\u0430\u0446\u044E\u0432\u0430\u043B\u0438 :</h3>\n    <ul class=\"team\">\n      <li class=\"team-list\">Denys Kravchuk</li>\n      <li class=\"team-list\">Serhiy Stepanov</li>\n      <li class=\"team-list\">Andrey Kovsh</li>\n      <li class=\"team-list\">Valentyna Chudik</li>\n      <li class=\"team-list\">Marina Vetokh</li>\n      <li class=\"team-list\">Andrii Lavrenchuk</li>\n    </ul>\n");
+  var instance = basicLightbox.create("\n    <h3 class=\"team-title\">\u041D\u0430\u0434 \u043F\u0440\u043E\u0435\u043A\u0442\u043E\u043C \u043F\u0440\u0430\u0446\u044E\u0432\u0430\u043B\u0438 :</h3>\n    <ul class=\"team\">\n      <li class=\"team-list\">Andrey Kovsh</li>\n      <li class=\"team-list\">Andrii Lavrenchuk</li>\n      <li class=\"team-list\">Artem Kiev</li>\n      <li class=\"team-list\">Denys Kravchuk</li>\n      <li class=\"team-list\">Marina Vetokh</li>\n      <li class=\"team-list\">Serhiy Stepanov</li>\n      <li class=\"team-list\">Valentyna Chudik</li>\n    </ul>\n");
   instance.show();
 }
 },{"basiclightbox":"../node_modules/basiclightbox/dist/basicLightbox.min.js","basicLightbox/dist/basicLightbox.min.css":"../node_modules/basicLightbox/dist/basicLightbox.min.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
