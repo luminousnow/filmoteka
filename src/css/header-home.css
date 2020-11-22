@@ -101,9 +101,14 @@
 }
 .error-js {
   display: block;
+  padding-bottom: 72px;
+  min-width: 280px;
+  text-align: left;
+
   color: red;
   font-size: 14px;
-  padding-bottom: 72px;
+}
+.hide {
   display: none;
 }
 .input {
@@ -125,6 +130,9 @@
   .input {
     width: 336px;
   }
+  .error-js {
+    min-width: 493px;
+  }
 }
 
 ::placeholder {
@@ -136,9 +144,10 @@
 .search-btn {
   position: absolute;
   top: 0px;
-  right: 5px;
+  right: 0px;
   background: transparent;
   border: none;
   fill: #ffffff;
   outline: none;
+  cursor: pointer;
 }
