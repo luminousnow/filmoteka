@@ -50,22 +50,20 @@
   }
 }
 
-.footer-btn {
-  border: none;
-  background-color: #f7f7f7;
-}
-
-.footer-link {
+#footer-btn {
   font-family: Roboto;
-  font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 1.2;
+  padding: 0;
   color: #545454;
+  border: none;
+  background-color: #f7f7f7;
+  cursor: pointer;
 }
 
-.footer-link:hover,
-.footer-link:focus {
+#footer-btn:hover,
+#footer-btn:focus {
   color: #ff6b08;
 }
 

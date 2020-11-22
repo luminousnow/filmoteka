@@ -32,7 +32,7 @@ const loader = document.querySelector('.loader-ellips');
 
 export function renderAllOnStartPage() {
   // точка входа
-
+  loader.classList.remove('is-hidden');
   fetchMovie(getGenresFromBack())
     // Получаю все жанры с бека и записую в localStorage
     .then(objGenres => {
@@ -58,6 +58,7 @@ export function renderAllOnStartPage() {
       return refs.mainWrapper.insertAdjacentHTML(
         'beforeend',
         renderMoviesListItem(movieData),
+        loader.classList.add('is-hidden'),
       );
     });
     renderFullInfoInModal(refs);
@@ -66,12 +67,12 @@ export function renderAllOnStartPage() {
 }
 
 export function renderFullInfo(id) {
-  // loader.classList.remove('is-hidden');
+  loader.classList.remove('is-hidden');
   fetchMovie(createUrlForFullInfo(id))
     .then(data => {
       refs.modal.innerHTML = renderModalContent(data); // тут передаю полученую дату в модалку полной инфи о фильме
       refs.modal.classList.add('is-open');
-      // loader.classList.add('is-hidden');
+      loader.classList.add('is-hidden');
       const close = document.querySelector('.js-close');
       close.addEventListener('click', onClose); // замінила refs.modal.classList.add('hide') на зміну onClose;
       window.addEventListener('keydown', onEscKeyPress); // додано закриття модалки по натисканню на ESC;
