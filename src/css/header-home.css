@@ -101,10 +101,12 @@
 }
 .error-js {
   display: block;
-  color: red;
-  font-size: 14px;
+  padding-bottom: 72px;
   min-width: 280px;
   text-align: left;
+
+  color: red;
+  font-size: 14px;
 }
 .hide {
   display: none;
