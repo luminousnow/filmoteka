@@ -50,7 +50,7 @@
   }
 }
 
-.footer-btn {
+#footer-btn {
   font-family: Roboto;
   font-weight: normal;
   font-size: 14px;
@@ -62,8 +62,8 @@
   cursor: pointer;
 }
 
-.footer-btn:hover,
-.footer-btn:focus {
+#footer-btn:hover,
+#footer-btn:focus {
   color: #ff6b08;
 }
 

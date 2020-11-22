@@ -1,7 +1,7 @@
 import * as basicLightbox from 'basiclightbox';
 import 'basicLightbox/dist/basicLightbox.min.css';
 
-const footerBtn = document.querySelector('.footer-btn');
+const footerBtn = document.querySelector('#footer-btn');
 
 footerBtn.addEventListener('click', onFooterBtnClick);
 
